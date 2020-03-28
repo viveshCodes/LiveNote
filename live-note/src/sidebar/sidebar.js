@@ -4,6 +4,7 @@ import styles from './styles';
 import List from '@material-ui/core/List';
 import { Divider, Button } from '@material-ui/core';
 import SidebarItemComponent from '../sidebaritem/sidebaritem';
+import ReactQuill from 'react-quill';
 
 class SidebarComponent extends React.Component {
     constructor(){
@@ -11,7 +12,10 @@ class SidebarComponent extends React.Component {
     }
     render(){
         return(
-            <h1>This is Sidebar Component.</h1>
+            <div>
+          
+            </div>
+            
         )
     }
 
