@@ -24,7 +24,13 @@ class App extends React.Component{
   render(){
     return (
       <div className="app-container">
-        <SidebarComponent></SidebarComponent>
+        <SidebarComponent
+          selectedNoteIndex={this.state.selectedNoteIndex}
+          notes={this.state.notes}
+          deleteNote ={this.deleteNote}
+          selectNote = {this.selectNote}
+          newNote = {this.newNote}
+        ></SidebarComponent>
         <EditorComponent></EditorComponent>
        
       </div>
@@ -44,7 +50,7 @@ class App extends React.Component{
         this.setState({ notes: notes });
       });
   }
-
+  selectNote = (note , index) =>this.setState({selectedNoteIndex : index , selectdedNote : note});
 
 }
 

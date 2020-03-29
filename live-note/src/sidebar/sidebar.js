@@ -9,15 +9,92 @@ import ReactQuill from 'react-quill';
 class SidebarComponent extends React.Component {
     constructor(){
         super();
+        this.state = {
+        addingNote :false,
+        title: null
+        }
     }
     render(){
+        const { notes,classes,selectedNoteIndex} = this.props;
+        if(notes){
         return(
-            <div>
+            <div className={classes.sidebarContainer}>
+                <Button
+                onClick={this.newNoteBtnClick}
+                className={classes.newNoteBtn}>{this.state.addingNote ? 'Cancel':'New Note'}
+                </Button>
+                {
+                    this.state.addingNote ?
+                    <div>
+                        <input type="text" 
+                        className={classes.newNoteInput} 
+                        placeholder="Write some notes" 
+                        onkeyUp = {(e) =>this.updateTitle(e.target.value)}>
+
+                        </input>
+
+                        <Button 
+                        className={classes.newNoteSubmitBtn}
+                        onClick={this.newNote}>
+                         Submit Note
+                        </Button>
+
+                    </div>:
+                    null
+                }
+
+                <List>
+                    {
+                        notes.map((_note,_index) => {
+                            return (
+                                <div key={_index}>
+                                    <SidebarItemComponent
+                                        _note={_note}
+                                        _index={_index}
+                                        selectedNoteIndex={selectedNoteIndex}
+                                        selectNote={this.selectNote}
+                                        deleteNote = {this.deleteNote}
+                                        >
+                                     </SidebarItemComponent> 
+                                     <Divider>
+                                     </Divider>
+                                </div>           
+                            )
+                        })
+                    }
+                </List>
           
             </div>
             
         )
+        }else
+        {
+            return(
+                <div></div>
+            )
+        }
+        
     }
+    newNoteBtnClick = () =>{
+        this.setState({title:null,addingNote: !this.state.addingNote})
+                
+    }
+    updateTitle = (txt) =>{
+
+        this.setState({title :txt});
+
+    } 
+    newNote = () =>{
+
+    }
+    selectNote =(n,i) => this.props.selectNote(n,i);
+
+    
+    deleteNote = () =>{
+        console.log("delete node");
+
+    }
+
 
 }
 export default withStyles(styles)(SidebarComponent);
